@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "537012624860",
+    "project_id": "loyaltyart-c4a4b",
+    "storage_bucket": "loyaltyart-c4a4b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537012624860:android:f61537f24d38c816fdc319",
+        "android_client_info": {
+          "package_name": "com.example.loyaltyart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy4-6Olg2koeLnMfVw1r4KcsvlgXYUJw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537012624860:android:90fd867e47c71a9bfdc319",
+        "android_client_info": {
+          "package_name": "com.loyaltyart.loyaltyart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy4-6Olg2koeLnMfVw1r4KcsvlgXYUJw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
