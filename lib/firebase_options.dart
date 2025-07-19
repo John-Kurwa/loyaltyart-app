@@ -71,4 +71,5 @@ class DefaultFirebaseOptions {
     authDomain: 'loyaltyart-c4a4b.firebaseapp.com',
     storageBucket: 'loyaltyart-c4a4b.firebasestorage.app',
   );
+
 }
