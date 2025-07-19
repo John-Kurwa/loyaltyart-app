@@ -109,7 +109,7 @@ flutter run
 
 **John Mumba**  
 🇰🇪 Nairobi, Kenya  
-[GitHub](https://github.com/john-mumba) • [LinkedIn](https://linkedin.com/in/john-mumba) • [Twitter](https://twitter.com/your_handle)
+[GitHub](https://github.com/John-Kurwa) • [LinkedIn](www.linkedin.com/in/john-kurwa60) 
 
 ---
 
