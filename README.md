@@ -78,6 +78,20 @@ flutter run
 
 ---
 
+### 6.Contribution
+-We welcome contributions! Please fork the repository and submit a pull request for any enhancements or bug fixes.
+
+Fork the project.
+-Create your feature branch: git checkout -b feature/YourFeatureName
+
+-Commit your changes: git commit -m 'Add some feature'
+
+-Push to the branch: git push origin feature/YourFeatureName
+
+-Open a pull request.
+
+---
+
 ## 💡 Tech Stack
 
 - **Flutter** (Dart)
