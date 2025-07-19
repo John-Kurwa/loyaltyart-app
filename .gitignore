@@ -12,7 +12,7 @@
 .swiftpm/
 migrate_working_dir/
 firebase-debug.log
-firebase_options.json
+firebase_options.dart
 google-services.json
 pubspec.lock
 
