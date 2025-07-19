@@ -19,7 +19,6 @@
 
 ## 📁 Project Structure
 
-```text
 lib/
 ├── app/
 │   ├── routes.dart           # App navigation
@@ -43,53 +42,39 @@ lib/
 │   │   └── presentation/pages/widgets/
 │   └── admin/
 │       └── presentation/pages/admin_dashboard.dart
-```
 
 ---
 
 ## 🛠️ Getting Started
 
 ### 1. Clone the repository
-
-```bash
 git clone https://github.com/john-kurwa/loyaltyart.git
 cd loyaltyart
-```
 
 ### 2. Install dependencies
 
-```bash
 flutter pub get
-```
 
 ### 3. Set up Firebase
-
-- Create a Firebase project
-- Enable **Email/Password** auth
-- Add a test user
-- Download `google-services.json`
-- Place it in:  
-  ```
-  android/app/google-services.json
-  ```
+- Visit this link: https://firebase.google.com/
+- Register if you do not have an account
+- Click "Go to console" and create a new project. Once done click add an app and select flutter icon to work directly with flutter project.
+- Follow this link: https://firebase.google.com/docs/cli?hl=en&authuser=0#install_the_firebase_cli to install firebase CLI in your project.
+- Run "firebase login" from the terminal then login in using your firebase console credentials.
+- Run "dart pub global activate flutterfire_cli" from the terminal.
+- Run "flutterfire configure --project=your project id from firebase terminal" replace with your project id from the setup in firebase console. Run this command  at the root of your       Flutter project directory to automatically generate firebase_options.dart file in the lib folder. 
+---
 
 ### 4. Configure Firebase
 
-Edit your Gradle files:
-- In `android/build.gradle`:
-  ```gradle
-  classpath 'com.google.gms:google-services:4.3.15'
-  ```
-- In `android/app/build.gradle`:
-  ```gradle
-  apply plugin: 'com.google.gms.google-services'
-  ```
+- Go to firebase console website, click settings and choose your project.
+- Click Authentication and next get started or proceed to enable Email/Password.
+
+---
 
 ### 5. Run the app
 
-```bash
 flutter run
-```
 
 ---
 
@@ -106,10 +91,7 @@ flutter run
 
 ## 📸 Screenshots
 
-> _You can add screenshots or gifs here later using:_
-```
 ![Dashboard](assets/screens/dashboard.png)
-```
 
 ---
 
