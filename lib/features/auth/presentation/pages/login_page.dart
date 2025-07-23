@@ -16,16 +16,16 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade900, // Deep banking blue
+      backgroundColor: Colors.purple.shade900, // Deep banking blue
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
+        backgroundColor: Colors.purple.shade900,
         elevation: 0,
         title: const Text(
           'Login',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22,
-            color: Colors.white,
+            color: Colors.blueAccent ,
           ),
         ),
         centerTitle: true,
@@ -42,19 +42,19 @@ class LoginPage extends StatelessWidget {
                 // Email Input Field
                 TextFormField(
                   controller: emailController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white54),
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: const TextStyle(color: Colors.white70),
                     filled: true,
-                    fillColor: Colors.blue.shade800,
+                    fillColor: Colors.purple.shade800,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: Colors.orangeAccent),
+                      borderSide: const BorderSide(color: Colors.blueAccent),
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -74,19 +74,19 @@ class LoginPage extends StatelessWidget {
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white54),
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: const TextStyle(color: Colors.white70),
                     filled: true,
-                    fillColor: Colors.blue.shade800,
+                    fillColor: Colors.purple.shade800,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: Colors.orangeAccent),
+                      borderSide: const BorderSide(color: Colors.blueAccent),
                     ),
                   ),
                   validator: (value) {
@@ -127,7 +127,7 @@ class LoginPage extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orangeAccent,
+                    backgroundColor: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

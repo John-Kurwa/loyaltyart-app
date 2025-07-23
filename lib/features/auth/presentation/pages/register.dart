@@ -5,73 +5,6 @@ import 'package:loyaltyart/features/home/presentation/pages/home_page.dart';
 // import '../../auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// class RegisterPage extends StatefulWidget {
-//   const RegisterPage({super.key});
-
-//   @override
-//   State<RegisterPage> createState() => _RegisterPageState();
-// }
-
-// class _RegisterPageState extends State<RegisterPage> {
-//   final _formKey = GlobalKey<FormState>();
-//   String email = '';
-//   String password = '';
-//   bool loading = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Staff Registration')),
-//       body: Center(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16),
-//           child: Form(
-//             key: _formKey,
-//             child: ListView(
-//               shrinkWrap: true,
-//               children: [
-//                 TextFormField(
-//                   decoration: const InputDecoration(labelText: 'Email'),
-//                   onSaved: (val) => email = val ?? '',
-//                   validator: (val) => val!.isEmpty ? 'Enter email' : null,
-//                 ),
-//                 TextFormField(
-//                   decoration: const InputDecoration(labelText: 'Password'),
-//                   obscureText: true,
-//                   onSaved: (val) => password = val ?? '',
-//                   validator: (val) => val!.isEmpty ? 'Enter password' : null,
-//                 ),
-//                 const SizedBox(height: 16),
-//                 loading
-//                     ? const Center(child: CircularProgressIndicator())
-//                     : ElevatedButton(
-//                         child: const Text('Register'),
-//                         onPressed: () async {
-//                           if (_formKey.currentState!.validate()) {
-//                             _formKey.currentState!.save();
-//                             setState(() => loading = true);
-//                             try {
-//                               await Provider.of<AuthController>(context, listen: false)
-//                                   .register(email, password);
-//                               Navigator.pop(context);
-//                             } catch (e) {
-//                               ScaffoldMessenger.of(context).showSnackBar(
-//                                 SnackBar(content: Text('Registration failed: ${e.toString()}')),
-//                               );
-//                             }
-//                             setState(() => loading = false);
-//                           }
-//                         },
-//                       ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -97,16 +30,16 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade900, // Deep banking blue
+      backgroundColor: Colors.purple.shade900, 
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
+        backgroundColor: Colors.purple.shade900,
         elevation: 0,
         title: const Text(
           'Sign Up',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22,
-            color: Colors.white,
+            color: Colors.blueAccent
           ),
         ),
         centerTitle: true,
@@ -123,19 +56,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 // Email Field
                 TextFormField(
                   controller: _emailController,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white54),
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: const TextStyle(color: Colors.white70),
                     filled: true,
-                    fillColor: Colors.blue.shade800,
+                    fillColor: Colors.purple.shade800,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: Colors.orangeAccent),
+                      borderSide: const BorderSide(color: Colors.blueAccent),
                     ),
                   ),
                   validator: (value) {
@@ -154,19 +87,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white54),
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: const TextStyle(color: Colors.white70),
                     filled: true,
-                    fillColor: Colors.blue.shade800,
+                    fillColor: Colors.purple.shade800,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: Colors.orangeAccent),
+                      borderSide: const BorderSide(color: Colors.blueAccent),
                     ),
                   ),
                   validator: (value) {
@@ -185,19 +118,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextFormField(
                   controller: _confirmPasswordController,
                   obscureText: true,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white12),
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     labelStyle: const TextStyle(color: Colors.white70),
                     filled: true,
-                    fillColor: Colors.blue.shade800,
+                    fillColor: Colors.purple.shade800,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: Colors.orangeAccent),
+                      borderSide: const BorderSide(color: Colors.blueAccent),
                     ),
                   ),
                   validator: (value) {
@@ -244,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orangeAccent,
+                    backgroundColor: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
