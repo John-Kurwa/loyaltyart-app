@@ -42,10 +42,13 @@ class _BookingFormState extends State<BookingForm> {
               onSaved: (val) => service = val ?? '',
               validator: (val) => val!.isEmpty ? 'Enter service' : null,
             ),
+            const SizedBox(height: 16),
             ElevatedButton(
               child: Text(bookingDate == null
                   ? 'Select Date'
-                  : bookingDate.toString()),
+                  : bookingDate.toString(),
+                  style: TextStyle(color: Colors.white),
+                  ), 
               onPressed: () async {
                 final picked = await showDatePicker(
                   context: context,
@@ -56,16 +59,25 @@ class _BookingFormState extends State<BookingForm> {
                 if (picked != null) {
                   setState(() {
                     bookingDate = picked;
-                  });
+                    }
+                  );
                 }
               },
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              child: const Text('Save Booking'),
+              child: const Text(
+                'Save Booking',
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
-                if (_formKey.currentState!.validate() &&
-                    bookingDate != null) {
+                if (_formKey.currentState!.validate()) {
+                  if (bookingDate == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please select a booking date')),
+                    );
+                    return;
+                  }
                   _formKey.currentState!.save();
                   final booking = Booking(
                     id: const Uuid().v4(),

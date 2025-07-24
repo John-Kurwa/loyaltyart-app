@@ -15,7 +15,28 @@ class _PaymentFormState extends State<PaymentForm> {
   final _formKey = GlobalKey<FormState>();
   String customerName = '';
   double amount = 0.0;
-  String method = '';
+  String method = 'Mpesa';
+
+  final List<String> paymentMethods = ['Mpesa', 'Cash', 'Card', 'PayPal'];
+
+  // ...existing code...
+
+IconData _getMethodIcon(String method) {
+  switch (method) {
+    case 'Mpesa':
+      return Icons.phone_android;
+    case 'Cash':
+      return Icons.attach_money;
+    case 'Card':
+      return Icons.credit_card;
+    case 'PayPal':
+      return Icons.account_balance_wallet;
+    default:
+      return Icons.payment;
+  }
+}
+
+// ...existing code...
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +58,42 @@ class _PaymentFormState extends State<PaymentForm> {
               onSaved: (val) => amount = double.tryParse(val ?? '0') ?? 0,
               validator: (val) => val!.isEmpty ? 'Enter amount' : null,
             ),
-            TextFormField(
+            DropdownButtonFormField<String>(
+              value: method,
               decoration: const InputDecoration(labelText: 'Payment Method'),
-              onSaved: (val) => method = val ?? '',
-              validator: (val) => val!.isEmpty ? 'Enter payment method' : null,
-            ),
+              items: paymentMethods.map((m) {
+                return DropdownMenuItem(
+                  value: m,
+                  child: Row(
+                    children: [
+                      Icon(
+                        _getMethodIcon(m),
+                        color: Colors.blueAccent,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(m),
+                    ],
+                  ),
+                );
+              }).toList(),
+              onChanged: (val) {
+                if (val != null) {
+                  setState(() {
+                    method = val;
+                  });
+                }
+              },
+              onSaved: (val) => method = val ?? 'Mpesa',
+              validator: (val) => val == null || val.isEmpty
+                  ? 'Select a payment method'
+                  : null,
+            ),                           
             const SizedBox(height: 16),
             ElevatedButton(
-              child: const Text('Save Payment'),
+              child: const Text('Save Payment', 
+              style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();

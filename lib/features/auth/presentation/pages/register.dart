@@ -200,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   },
                   child: const Text(
                     'Already have an account? Login',
-                    style: TextStyle(color: Colors.white70),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],

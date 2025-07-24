@@ -15,21 +15,27 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await NotificationService.initialize();
 
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => AuthController()),      
-      ChangeNotifierProvider(create: (_) => BookingsController()..loadBookings()),      
-      ChangeNotifierProvider(create: (_) => LoyaltyController()),
-      ChangeNotifierProvider(create: (_) => PaymentsController()..loadPayments()),
-      ChangeNotifierProvider(create: (_) => AdminController()..loadAnalytics()),
-    ],
-    child: const LoyaltyArtApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthController()),
+        ChangeNotifierProvider(
+          create: (_) => BookingsController()..loadBookings(),
+        ),
+        ChangeNotifierProvider(create: (_) => LoyaltyController()),
+        ChangeNotifierProvider(
+          create: (_) => PaymentsController()..loadPayments(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AdminController()..loadAnalytics(),
+        ),
+      ],
+      child: const LoyaltyArtApp(),
+    ),
+  );
 }
 
 class LoyaltyArtApp extends StatelessWidget {
@@ -43,7 +49,9 @@ class LoyaltyArtApp extends StatelessWidget {
       stream: authController.userChanges,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator())));
+          return const MaterialApp(
+            home: Scaffold(body: Center(child: CircularProgressIndicator())),
+          );
         }
         if (snapshot.hasData) {
           return MaterialApp(
@@ -63,4 +71,3 @@ class LoyaltyArtApp extends StatelessWidget {
     );
   }
 }
-

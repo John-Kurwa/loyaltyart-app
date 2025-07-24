@@ -27,12 +27,20 @@ class PaymentsPage extends StatelessWidget {
               itemCount: controller.payments.length,
               itemBuilder: (context, index) {
                 final payment = controller.payments[index];
-                return ListTile(
-                  title: Text(payment.customerName),
-                  subtitle: Text(
-                    '${payment.method} on ${payment.date.toLocal().toString().substring(0, 16)}',
-                  ),
-                  trailing: Text('KES ${payment.amount.toStringAsFixed(2)}'),
+                return Card(  
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: ListTile(
+                    leading: CircleAvatar(child: Text(payment.customerName[0])),
+                    title: Text(payment.customerName),
+                    subtitle: Text('${payment.method} • ${payment.date.toLocal().toString().substring(0, 16)}'),
+                    trailing: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('KES ${payment.amount.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('Completed', style: TextStyle(color: Colors.green, fontSize: 12)),
+                      ],
+                    ),
+                  ),                
                 );
               },
             ),
