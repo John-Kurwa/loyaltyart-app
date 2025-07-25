@@ -1,3 +1,87 @@
+// import 'package:flutter/material.dart';
+
+// class HomePage extends StatelessWidget {
+//   const HomePage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("LoyaltyArt Dashboard"),
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.logout),
+//             onPressed: () {
+//               // Handle logout action
+//               // sign out logic here
+//               Navigator.pushNamed(context, '/login');
+//             },
+//           ),
+//         ],
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16),
+//         child: GridView.count(
+//           crossAxisCount: 2,
+//           childAspectRatio: 1,
+//           mainAxisSpacing: 16,
+//           crossAxisSpacing: 16,
+//           children: [
+//             _buildTile(
+//               context,
+//               icon: Icons.calendar_today,
+//               label: "Bookings",
+//               onTap: () => Navigator.pushNamed(context, '/bookings'),
+//             ),
+//             _buildTile(
+//               context,
+//               icon: Icons.qr_code,
+//               label: "Loyalty",
+//               onTap: () => Navigator.pushNamed(context, '/loyalty'),
+//             ),
+//             _buildTile(
+//               context,
+//               icon: Icons.payments,
+//               label: "Payments",
+//               onTap: () => Navigator.pushNamed(context, '/payments'),
+//             ),
+//             _buildTile(
+//               context,
+//               icon: Icons.bar_chart,
+//               label: "Analytics",
+//               onTap: () => Navigator.pushNamed(context, '/admin'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildTile(
+//     BuildContext context, {
+//     required IconData icon,
+//     required String label,
+//     required VoidCallback onTap,
+//   }) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Card(
+//         elevation: 4,
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(icon, size: 48, color: Colors.deepPurple),
+//             const SizedBox(height: 8),
+//             Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,48 +90,66 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF8F8F8),
       appBar: AppBar(
-        title: const Text("LoyaltyArt Dashboard"),
+        title: const Text("Dashboard", style: TextStyle(fontWeight: FontWeight.w600)),
+        backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              // sign out logic here
+              Navigator.pushNamed(context, '/login');
             },
           ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: 1,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildTile(
-              context,
-              icon: Icons.calendar_today,
-              label: "Bookings",
-              onTap: () => Navigator.pushNamed(context, '/bookings'),
+            const Text(
+              "Welcome back!",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            _buildTile(
-              context,
-              icon: Icons.qr_code,
-              label: "Loyalty",
-              onTap: () => Navigator.pushNamed(context, '/loyalty'),
-            ),
-            _buildTile(
-              context,
-              icon: Icons.payments,
-              label: "Payments",
-              onTap: () => Navigator.pushNamed(context, '/payments'),
-            ),
-            _buildTile(
-              context,
-              icon: Icons.bar_chart,
-              label: "Analytics",
-              onTap: () => Navigator.pushNamed(context, '/admin'),
+            const SizedBox(height: 20),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 1,
+                children: [
+                  _buildTile(
+                    context,
+                    icon: Icons.calendar_today,
+                    label: "Bookings",
+                    color: Colors.orange,
+                    onTap: () => Navigator.pushNamed(context, '/bookings'),
+                  ),
+                  _buildTile(
+                    context,
+                    icon: Icons.qr_code,
+                    label: "Loyalty",
+                    color: Colors.green,
+                    onTap: () => Navigator.pushNamed(context, '/loyalty'),
+                  ),
+                  _buildTile(
+                    context,
+                    icon: Icons.payments,
+                    label: "Payments",
+                    color: Colors.teal,
+                    onTap: () => Navigator.pushNamed(context, '/payments'),
+                  ),
+                  _buildTile(
+                    context,
+                    icon: Icons.bar_chart,
+                    label: "Analytics",
+                    color: Colors.blue,
+                    onTap: () => Navigator.pushNamed(context, '/admin'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -59,23 +161,41 @@ class HomePage extends StatelessWidget {
     BuildContext context, {
     required IconData icon,
     required String label,
+    required Color color,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 48, color: Colors.deepPurple),
-            const SizedBox(height: 8),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+            CircleAvatar(
+              radius: 28,
+              backgroundColor: color.withOpacity(0.1),
+              child: Icon(icon, color: color, size: 32),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            ),
           ],
         ),
       ),
     );
   }
-}
-
+}                  
