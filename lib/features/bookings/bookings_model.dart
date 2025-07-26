@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Booking {
   final String id;
   final String customerName;
@@ -28,8 +30,15 @@ class Booking {
       id: map['id'] ?? '',
       customerName: map['customerName'] ?? '',
       phone: map['phone'] ?? '',
-      bookingDate: DateTime.parse(map['bookingDate']),
+      bookingDate: _parseDate(map['bookingDate']),
       service: map['service'] ?? '',
     );
+  }
+
+  static DateTime _parseDate(dynamic value) {
+    if (value == null) return DateTime.now();
+    if (value is Timestamp) return value.toDate();
+    if (value is String) return DateTime.tryParse(value) ?? DateTime.now();
+    return DateTime.now();
   }
 }

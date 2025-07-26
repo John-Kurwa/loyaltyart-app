@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Payment {
   final String id;
   final String customerName;
@@ -18,18 +20,28 @@ class Payment {
       'id': id,
       'customerName': customerName,
       'amount': amount,
-      'date': date.toIso8601String(),
+      'date': date.toIso8601String(), // Save as ISO string for consistency
       'method': method,
     };
   }
 
   factory Payment.fromMap(Map<String, dynamic> map) {
+    // Handle both Timestamp (Firestore) and String
+    DateTime parsedDate;
+    if (map['date'] is String) {
+      parsedDate = DateTime.tryParse(map['date']) ?? DateTime.now();
+    } else if (map['date'] is Timestamp) {
+      parsedDate = (map['date'] as Timestamp).toDate();
+    } else {
+      parsedDate = DateTime.now(); // Fallback if date is null or invalid
+    }
+
     return Payment(
-      id: map['id'] ?? '',
-      customerName: map['customerName'] ?? '',
-      amount: map['amount']?.toDouble() ?? 0.0,
-      date: DateTime.parse(map['date']),
-      method: map['method'] ?? '',
+      id: map['id'] as String? ?? '',
+      customerName: map['customerName'] as String? ?? '',
+      amount: (map['amount'] is num) ? (map['amount'] as num).toDouble() : 0.0,
+      date: parsedDate,
+      method: map['method'] as String? ?? '',
     );
   }
 }

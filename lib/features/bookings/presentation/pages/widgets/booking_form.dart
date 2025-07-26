@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../../../bookings_controller.dart';
 import '../../../bookings_model.dart';
-import 'package:uuid/uuid.dart';
 
 class BookingForm extends StatefulWidget {
   const BookingForm({super.key});
@@ -16,7 +16,47 @@ class _BookingFormState extends State<BookingForm> {
   String customerName = '';
   String phone = '';
   String service = '';
-  DateTime? bookingDate;
+  DateTime? _bookingDate;
+
+  Future<void> _selectBookingDate(BuildContext context) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _bookingDate = picked;
+      });
+    }
+  }
+
+  void _submitForm(BuildContext context) {
+    if (!_formKey.currentState!.validate()) return;
+
+    final selectedDate = _bookingDate;
+    if (selectedDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a booking date')),
+      );
+      return;
+    }
+
+    _formKey.currentState!.save();
+
+    final booking = Booking(
+      id: const Uuid().v4(),
+      customerName: customerName,
+      phone: phone,
+      bookingDate: selectedDate,
+      service: service,
+    );
+
+    Provider.of<BookingsController>(context, listen: false).addBooking(booking);
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,67 +70,36 @@ class _BookingFormState extends State<BookingForm> {
             TextFormField(
               decoration: const InputDecoration(labelText: 'Customer Name'),
               onSaved: (val) => customerName = val ?? '',
-              validator: (val) => val!.isEmpty ? 'Enter name' : null,
+              validator: (val) => val == null || val.isEmpty ? 'Enter name' : null,
             ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'Phone'),
+              keyboardType: TextInputType.phone,
               onSaved: (val) => phone = val ?? '',
-              validator: (val) => val!.isEmpty ? 'Enter phone' : null,
+              validator: (val) => val == null || val.isEmpty ? 'Enter phone' : null,
             ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'Service'),
               onSaved: (val) => service = val ?? '',
-              validator: (val) => val!.isEmpty ? 'Enter service' : null,
+              validator: (val) => val == null || val.isEmpty ? 'Enter service' : null,
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              child: Text(bookingDate == null
-                  ? 'Select Date'
-                  : bookingDate.toString(),
-                  style: TextStyle(color: Colors.white),
-                  ), 
-              onPressed: () async {
-                final picked = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now().subtract(const Duration(days: 0)),
-                  lastDate: DateTime.now().add(const Duration(days: 365)),
-                );
-                if (picked != null) {
-                  setState(() {
-                    bookingDate = picked;
-                    }
-                  );
-                }
-              },
+              onPressed: () => _selectBookingDate(context),
+              child: Text(
+                _bookingDate == null
+                    ? 'Select Date'
+                    : 'Selected: ${_bookingDate!.toLocal()}'.split(' ')[0],
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
+              onPressed: () => _submitForm(context),
               child: const Text(
                 'Save Booking',
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  if (bookingDate == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please select a booking date')),
-                    );
-                    return;
-                  }
-                  _formKey.currentState!.save();
-                  final booking = Booking(
-                    id: const Uuid().v4(),
-                    customerName: customerName,
-                    phone: phone,
-                    bookingDate: bookingDate!,
-                    service: service,
-                  );
-                  Provider.of<BookingsController>(context, listen: false)
-                      .addBooking(booking);
-                  Navigator.pop(context);
-                }
-              },
             ),
           ],
         ),

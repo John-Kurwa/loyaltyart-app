@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loyaltyart/features/bookings/bookings_controller.dart';
 import 'package:loyaltyart/features/bookings/presentation/pages/widgets/booking_form.dart';
 import 'package:provider/provider.dart';
-// import '../../bookings_model.dart';
 
 class BookingsPage extends StatelessWidget {
   const BookingsPage({super.key});
@@ -28,12 +27,20 @@ class BookingsPage extends StatelessWidget {
               itemCount: controller.bookings.length,
               itemBuilder: (context, index) {
                 final booking = controller.bookings[index];
+                final customerName = booking.customerName.isNotEmpty
+                    ? booking.customerName
+                    : 'No name';
+                final service = booking.service.isNotEmpty
+                    ? booking.service
+                    : 'Unknown service';
+                final phone = booking.phone.isNotEmpty
+                    ? booking.phone
+                    : 'No phone';
+
                 return ListTile(
-                  title: Text(booking.customerName),
-                  subtitle: Text(
-                    "${booking.service} on ${booking.bookingDate.toLocal()}",
-                  ),
-                  trailing: Text(booking.phone),
+                  title: Text(customerName),
+                  subtitle: Text("$service on ${booking.bookingDate.toLocal()}"),
+                  trailing: Text(phone),
                 );
               },
             ),

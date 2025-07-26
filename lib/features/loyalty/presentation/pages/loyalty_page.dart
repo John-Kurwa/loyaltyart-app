@@ -11,7 +11,9 @@ class LoyaltyPage extends StatelessWidget {
     final controller = Provider.of<LoyaltyController>(context);
 
     // Load a test user for now
+    WidgetsBinding.instance.addPostFrameCallback((_) {
     controller.loadLoyalty('test_customer_id');
+    });
 
     return Scaffold(
       appBar: AppBar(title: const Text('Loyalty Dashboard')),
@@ -27,13 +29,18 @@ class LoyaltyPage extends StatelessWidget {
           const SizedBox(height: 16),
 
           ElevatedButton(
-            child: const Text('Scan Loyalty QR (Staff)'),
+            child: const Text('Scan Loyalty QR (Staff)',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
             onPressed: () {
               Navigator.pushNamed(context, '/scanqr');
             },          
           ),
+          const SizedBox(height: 8),
           ElevatedButton(
-            child: const Text('Admin Analytics'),
+            child: const Text('Admin Analytics',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
             onPressed: () {
               Navigator.pushNamed(context, '/admin');
             },

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loyaltyart/features/auth/presentation/pages/login_page.dart';
 import 'package:loyaltyart/features/home/presentation/pages/home_page.dart';
-// import 'package:provider/provider.dart';
-// import '../../auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPage extends StatefulWidget {

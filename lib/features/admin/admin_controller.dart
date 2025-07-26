@@ -50,17 +50,21 @@ class AdminController extends ChangeNotifier {
     // Top customers
     topCustomers = {
       for (var doc in loyaltySnap.docs)
+      if (doc['customerId'] != null)
         doc['customerId']: doc['points'] ?? 0,
     };
 
     // ✅ Revenue per month
     Map<String, double> revenuePerMonth = {};
     for (var doc in paymentsSnap.docs) {
-      final date = DateTime.parse(doc['date']);
+      // final date = DateTime.parse(doc['date']);
+      final dateString = doc['date'];
+      if (dateString == null) continue;
+       final date = DateTime.tryParse(dateString);
+      if (date == null) continue;
       final monthKey = "${date.year}-${date.month.toString().padLeft(2, '0')}";
       revenuePerMonth[monthKey] = (revenuePerMonth[monthKey] ?? 0.0) + (doc['amount'] ?? 0.0);
     }
-
     final sortedMonths = revenuePerMonth.keys.toList()..sort();
     revenueBarGroups = [];
     for (int i = 0; i < sortedMonths.length; i++) {
@@ -83,12 +87,15 @@ class AdminController extends ChangeNotifier {
     Map<String, int> bookingsPerDay = {};
     Map<String, DateTime> dateMap = {};
     for (var doc in bookingsSnap.docs) {
-      final date = DateTime.parse(doc['bookingDate']);
+      // final date = DateTime.parse(doc['bookingDate']);
+      final dateString = doc['bookingDate'];
+      if (dateString == null) continue;
+       final date = DateTime.tryParse(dateString);
+      if (date == null) continue;
       final dayKey = "${date.year}-${date.month}-${date.day}";
       bookingsPerDay[dayKey] = (bookingsPerDay[dayKey] ?? 0) + 1;
       dateMap[dayKey] = date;
     }
-
     final sortedDays = bookingsPerDay.keys.toList()..sort();
     bookingsLineSpots = [];
     bookingDates = [];

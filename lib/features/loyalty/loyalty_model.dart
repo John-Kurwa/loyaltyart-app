@@ -15,9 +15,12 @@ class Loyalty {
   }
 
   factory Loyalty.fromMap(Map<String, dynamic> map) {
+    final customerId = map['customerId'];
+    final points = map['points'];
+
     return Loyalty(
-      customerId: map['customerId'] ?? '',
-      points: map['points'] ?? 0,
+      customerId: customerId is String ? customerId : '',
+      points: points is int ? points : 0,
     );
   }
 }

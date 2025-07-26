@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import '../../auth_controller.dart';
 import '../../../auth/presentation/pages/register.dart';
 import 'package:loyaltyart/features/home/presentation/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({super.key});
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

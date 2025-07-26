@@ -19,6 +19,11 @@ class BookingsController extends ChangeNotifier {
   Future<void> addBooking(Booking booking) async {
     await _repository.addBooking(booking);
 
+    if (booking.phone.trim().isEmpty) {
+      debugPrint("Skipping SMS: Phone number is empty");
+      return;
+    }
+
     try {
       await SmsService.sendSms(
         to: booking.phone,

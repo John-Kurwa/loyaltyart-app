@@ -7,15 +7,21 @@ class ScanQrPage extends StatelessWidget {
   const ScanQrPage({super.key});
 
   Future<void> scanQr(BuildContext context) async {
-    String scanResult = await FlutterBarcodeScanner.scanBarcode(
-      '#ff6666', 'Cancel', true, ScanMode.QR);
-    
-    if (scanResult != '-1') {
-      // update loyalty points
-      await Provider.of<LoyaltyController>(context, listen: false)
-          .addVisit(scanResult);
+    try {
+      String scanResult = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (scanResult != '-1' && scanResult.trim().isNotEmpty) {
+        final controller = Provider.of<LoyaltyController>(context, listen: false);
+        await controller.addVisit(scanResult);
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Loyalty points updated for $scanResult')),
+        );
+      }
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Loyalty points updated for $scanResult')),
+        SnackBar(content: Text('Error scanning QR code: $e')),
       );
     }
   }

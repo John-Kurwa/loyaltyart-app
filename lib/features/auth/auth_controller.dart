@@ -23,8 +23,17 @@ class AuthController extends ChangeNotifier {
       email: email,
       password: password,
     );
-  } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        throw Exception('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        throw Exception('The account already exists for that email.');
+      } else {
+        throw Exception('Failed to register: ${e.message}');
+      }
+    } catch (e) {
+      // Handle other exceptions
     rethrow;
+    }
   }
-}
 }

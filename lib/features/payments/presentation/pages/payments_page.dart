@@ -27,20 +27,33 @@ class PaymentsPage extends StatelessWidget {
               itemCount: controller.payments.length,
               itemBuilder: (context, index) {
                 final payment = controller.payments[index];
-                return Card(  
+
+                final customerInitial = (payment.customerName.isNotEmpty)
+                    ? payment.customerName[0]
+                    : '?';
+
+                return Card(
                   margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: ListTile(
-                    leading: CircleAvatar(child: Text(payment.customerName[0])),
-                    title: Text(payment.customerName),
-                    subtitle: Text('${payment.method} • ${payment.date.toLocal().toString().substring(0, 16)}'),
+                    leading: CircleAvatar(child: Text(customerInitial)),
+                    title: Text(payment.customerName.isNotEmpty ? payment.customerName : 'Unnamed'),
+                    subtitle: Text(
+                      '${payment.method} • ${payment.date.toLocal().toString().substring(0, 16)}',
+                    ),
                     trailing: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('KES ${payment.amount.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text('Completed', style: TextStyle(color: Colors.green, fontSize: 12)),
+                        Text(
+                          'KES ${payment.amount.toStringAsFixed(2)}',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          'Completed',
+                          style: TextStyle(color: Colors.green, fontSize: 12),
+                        ),
                       ],
                     ),
-                  ),                
+                  ),
                 );
               },
             ),

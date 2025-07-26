@@ -8,6 +8,7 @@ class QrCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dataToEncode = customerId.trim();
     return Card(
       elevation: 4,
       child: Padding(
@@ -15,10 +16,13 @@ class QrCard extends StatelessWidget {
         child: Column(
           children: [
             const Text('Show this QR code on visit'),
-            QrImageView(
-              data: customerId,
-              size: 200,
-            ),
+            if (dataToEncode.isNotEmpty)
+              QrImageView(
+                data: dataToEncode,
+                size: 200,
+              )
+            else
+              const Text('Invalid customer ID'),
           ],
         ),
       ),

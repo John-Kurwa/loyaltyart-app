@@ -96,8 +96,14 @@ class AdminDashboard extends StatelessWidget {
 
     for (var i = 0; i < dataPoints.length; i++) {
       final point = dataPoints[i];
-      dates.add(point['date']);
-      spots.add(FlSpot(i.toDouble(), point['value']));
+      final date = point['date'];
+      final value = point['value'];
+
+      if (date != null && value != null) {
+        dates.add(date);
+        spots.add(FlSpot(i.toDouble(), point['value']));
+      }
+      
     }
 
     return LineChart(

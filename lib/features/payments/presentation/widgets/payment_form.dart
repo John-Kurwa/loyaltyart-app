@@ -19,24 +19,20 @@ class _PaymentFormState extends State<PaymentForm> {
 
   final List<String> paymentMethods = ['Mpesa', 'Cash', 'Card', 'PayPal'];
 
-  // ...existing code...
-
-IconData _getMethodIcon(String method) {
-  switch (method) {
-    case 'Mpesa':
-      return Icons.phone_android;
-    case 'Cash':
-      return Icons.attach_money;
-    case 'Card':
-      return Icons.credit_card;
-    case 'PayPal':
-      return Icons.account_balance_wallet;
-    default:
-      return Icons.payment;
+  IconData _getMethodIcon(String method) {
+    switch (method) {
+      case 'Mpesa':
+        return Icons.phone_android;
+      case 'Cash':
+        return Icons.attach_money;
+      case 'Card':
+        return Icons.credit_card;
+      case 'PayPal':
+        return Icons.account_balance_wallet;
+      default:
+        return Icons.payment;
+    }
   }
-}
-
-// ...existing code...
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +45,25 @@ IconData _getMethodIcon(String method) {
           children: [
             TextFormField(
               decoration: const InputDecoration(labelText: 'Customer Name'),
-              onSaved: (val) => customerName = val ?? '',
-              validator: (val) => val!.isEmpty ? 'Enter name' : null,
+              onSaved: (val) => customerName = val?.trim() ?? '',
+              validator: (val) =>
+                  (val == null || val.trim().isEmpty) ? 'Enter name' : null,
             ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'Amount'),
               keyboardType: TextInputType.number,
-              onSaved: (val) => amount = double.tryParse(val ?? '0') ?? 0,
-              validator: (val) => val!.isEmpty ? 'Enter amount' : null,
+              onSaved: (val) =>
+                  amount = double.tryParse(val?.trim() ?? '') ?? 0,
+              validator: (val) {
+                if (val == null || val.trim().isEmpty) {
+                  return 'Enter amount';
+                }
+                final parsed = double.tryParse(val);
+                if (parsed == null || parsed <= 0) {
+                  return 'Enter a valid amount';
+                }
+                return null;
+              },
             ),
             DropdownButtonFormField<String>(
               value: method,
@@ -79,22 +86,20 @@ IconData _getMethodIcon(String method) {
               }).toList(),
               onChanged: (val) {
                 if (val != null) {
-                  setState(() {
-                    method = val;
-                  });
+                  setState(() => method = val);
                 }
               },
               onSaved: (val) => method = val ?? 'Mpesa',
-              validator: (val) => val == null || val.isEmpty
-                  ? 'Select a payment method'
-                  : null,
-            ),                           
+              validator: (val) =>
+                  (val == null || val.isEmpty) ? 'Select a payment method' : null,
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
-              child: const Text('Save Payment', 
-              style: TextStyle(color: Colors.white),
+              child: const Text(
+                'Save Payment',
+                style: TextStyle(color: Colors.white),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
                   final payment = Payment(
@@ -104,9 +109,19 @@ IconData _getMethodIcon(String method) {
                     date: DateTime.now(),
                     method: method,
                   );
-                  Provider.of<PaymentsController>(context, listen: false)
-                      .addPayment(payment);
-                  Navigator.pop(context);
+
+                  try {
+                    await Provider.of<PaymentsController>(context, listen: false)
+                        .addPayment(payment);
+                    if (context.mounted) Navigator.pop(context);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error saving payment: $e'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 }
               },
             ),
