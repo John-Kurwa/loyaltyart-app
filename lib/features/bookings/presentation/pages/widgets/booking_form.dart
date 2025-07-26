@@ -98,7 +98,7 @@ class _BookingFormState extends State<BookingForm> {
               onPressed: () => _submitForm(context),
               child: const Text(
                 'Save Booking',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, ),
               ),
             ),
           ],

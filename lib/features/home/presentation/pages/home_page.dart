@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:loyaltyart/features/auth//auth_controller.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,9 +15,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
+            onPressed: () async {
+                await Provider.of<AuthController>(context, listen: false).signOut();
+                Navigator.pushReplacementNamed(context, '/login');
+              },            
           ),
         ],
       ),
