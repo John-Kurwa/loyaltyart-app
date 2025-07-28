@@ -14,8 +14,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade900, // Deep banking blue
+      backgroundColor: Colors.purple.shade900, 
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.purple.shade900,
         elevation: 0,
         title: const Text(

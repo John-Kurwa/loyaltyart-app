@@ -43,7 +43,7 @@ class LoyaltyArtApp extends StatelessWidget {
       onGenerateRoute: AppRoutes.generateRoute,
       routes: {
         '/': (context) => const HomePage(),
-        '/auth': (context) => LoginPage(),
+        '/auth': (context) =>  LoginPage(),
         // Add more routes as needed
       },
     );
