@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"loyaltyart-c4a4b","appId":"1:537012624860:android:f61537f24d38c816fdc319","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"loyaltyart-c4a4b","configurations":{"android":"1:537012624860:android:f61537f24d38c816fdc319","web":"1:537012624860:web:6e5d3ed236114bebfdc319","windows":"1:537012624860:web:c7daeb4642651cc9fdc319"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "loyaltyart-c4a4b",
+          "appId": "1:537012624860:android:f61537f24d38c816fdc319",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "loyaltyart-c4a4b",
+          "configurations": {
+            "android": "1:537012624860:android:f61537f24d38c816fdc319",
+            "web": "1:537012624860:web:6e5d3ed236114bebfdc319",
+            "windows": "1:537012624860:web:c7daeb4642651cc9fdc319"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
