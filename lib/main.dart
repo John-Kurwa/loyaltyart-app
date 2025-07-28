@@ -39,11 +39,11 @@ class LoyaltyArtApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'loyaltyArt',
       theme: loyaltyTheme,
-      initialRoute: '/home',
+      initialRoute: '/auth',
       onGenerateRoute: AppRoutes.generateRoute,
       routes: {
-        '/': (context) => LoginPage(),
-        '/home': (context) => const HomePage(),
+        '/': (context) => const HomePage(),
+        '/auth': (context) => LoginPage(),
         // Add more routes as needed
       },
     );
