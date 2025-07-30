@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: const Text("Dashboard", style: TextStyle(fontWeight: FontWeight.w600)),
         backgroundColor: Colors.deepPurple,
+        leading: Icon(Icons.menu, color: Colors.white30),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -23,8 +24,22 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      
+      //Bottom navigation bar
+      bottomNavigationBar: NavigationBar(
+          destinations: [
+            NavigationDestination(
+             icon: Icon(Icons.home),
+              label: '',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.search),
+              label: '',
+            ),
+          ],
+        ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

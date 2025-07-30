@@ -27,6 +27,7 @@ class LoginPage extends StatelessWidget {
             color: Colors.blueAccent ,
           ),
         ),
+        leading: Icon(Icons.login_rounded, color: Colors.blueAccent),
         centerTitle: true,
       ),
       body: Center(
