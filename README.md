@@ -14,6 +14,8 @@
 - ✉️ **SMS Reminders** (via integrated SMS API)
 - 🔔 **Push Notifications**
 - 🎨 Smooth Animations & Responsive UI
+- [View link](https://loyaltyart-c4a4b.firebaseapp.com)
+
 
 ---
 
