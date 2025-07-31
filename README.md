@@ -16,7 +16,6 @@
 - 🎨 Smooth Animations & Responsive UI
 - [View link](https://loyaltyart-c4a4b.firebaseapp.com)
 
-
 ---
 
 ## 📁 Project Structure
@@ -134,6 +133,3 @@ Fork the project.
 This project is licensed under the MIT License — feel free to use and modify.
 
 ---
-
-
-
