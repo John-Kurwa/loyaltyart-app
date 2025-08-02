@@ -97,7 +97,7 @@ class _PaymentFormState extends State<PaymentForm> {
             ElevatedButton(
               child: const Text(
                 'Save Payment',
-                style: TextStyle(color: Colors.white),
+                // style: TextStyle(color: Colors.white),
               ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {

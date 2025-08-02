@@ -90,7 +90,7 @@ class _BookingFormState extends State<BookingForm> {
                 _bookingDate == null
                     ? 'Select Date'
                     : 'Selected: ${_bookingDate!.toLocal()}'.split(' ')[0],
-                style: const TextStyle(color: Colors.white),
+                // style: const TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(height: 16),
@@ -98,7 +98,7 @@ class _BookingFormState extends State<BookingForm> {
               onPressed: () => _submitForm(context),
               child: const Text(
                 'Save Booking',
-                style: TextStyle(color: Colors.white, ),
+                // style: TextStyle(color: Colors.white, ),
               ),
             ),
           ],

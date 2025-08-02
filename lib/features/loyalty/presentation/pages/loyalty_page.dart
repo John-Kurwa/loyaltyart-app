@@ -30,7 +30,7 @@ class LoyaltyPage extends StatelessWidget {
 
           ElevatedButton(
             child: const Text('Scan Loyalty QR (Staff)',
-            style: TextStyle(color: Colors.white, fontSize: 12),
+            // style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             onPressed: () {
               Navigator.pushNamed(context, '/scanqr');
@@ -39,7 +39,7 @@ class LoyaltyPage extends StatelessWidget {
           const SizedBox(height: 8),
           ElevatedButton(
             child: const Text('Admin Analytics',
-            style: TextStyle(color: Colors.white, fontSize: 12),
+            // style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             onPressed: () {
               Navigator.pushNamed(context, '/admin');

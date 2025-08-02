@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:loyaltyart/features/auth//auth_controller.dart';
+import 'package:loyaltyart/app/notifiers.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,20 +9,36 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
+      backgroundColor:  Color(0xFFF8F8F8),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text("Dashboard", style: TextStyle(fontWeight: FontWeight.w600)),
-        backgroundColor: Colors.deepPurple,
-        leading: Icon(Icons.menu, color: Colors.white30),
-        actions: [
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black
+            : Colors.grey[500],
+        leading: Icon(Icons.menu, color: Colors.white),
+        actions: [  
+          IconButton(
+            onPressed: () {
+              isDarkModeNotifier.value = !isDarkModeNotifier.value;
+            },
+            icon: ValueListenableBuilder(
+              valueListenable: isDarkModeNotifier,
+              builder: (context, isDarkMode, child) {
+                return Icon(
+                  isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                );
+              },            
+            ),
+          ), 
+          const SizedBox(width: 8),                 
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
                 await Provider.of<AuthController>(context, listen: false).signOut();
                 Navigator.pushReplacementNamed(context, '/login');
-              },            
-          ),
+            },            
+          ),          
         ],
       ),
       
@@ -45,7 +62,12 @@ class HomePage extends StatelessWidget {
           children: [
             const Text(
               "Welcome back!",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 24,
+              //  fontWeight: FontWeight.bold,
+               fontWeight: FontWeight.w600,
+               fontFamily: 'Poppins',
+               color: Colors.purple,
+              ),
             ),
             const SizedBox(height: 20),
             Expanded(
@@ -59,28 +81,28 @@ class HomePage extends StatelessWidget {
                     context,
                     icon: Icons.calendar_today,
                     label: "Bookings",
-                    color: Colors.orange,
+                    color: Colors.purpleAccent,
                     onTap: () => Navigator.pushNamed(context, '/bookings'),
                   ),
                   _buildTile(
                     context,
                     icon: Icons.qr_code,
                     label: "Loyalty",
-                    color: Colors.green,
+                    color: Colors.purpleAccent,
                     onTap: () => Navigator.pushNamed(context, '/loyalty'),
                   ),
                   _buildTile(
                     context,
                     icon: Icons.payments,
                     label: "Payments",
-                    color: Colors.teal,
+                    color: Colors.purpleAccent,
                     onTap: () => Navigator.pushNamed(context, '/payments'),
                   ),
                   _buildTile(
                     context,
                     icon: Icons.bar_chart,
                     label: "Analytics",
-                    color: Colors.blue,
+                    color: Colors.purpleAccent,
                     onTap: () => Navigator.pushNamed(context, '/admin'),
                   ),
                 ],
@@ -104,11 +126,13 @@ class HomePage extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black12,
+              color: Colors.black.withOpacity(0.1),
               blurRadius: 8,
               offset: Offset(0, 4),
             ),
