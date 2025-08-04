@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade900, 
+      backgroundColor: Colors.purple.shade900,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.purple.shade900,
@@ -38,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22,
-            color: Colors.blueAccent
+            color: Colors.blueAccent,
           ),
         ),
         centerTitle: true,
@@ -153,25 +153,33 @@ class _SignUpPageState extends State<SignUpPage> {
                           email: _emailController.text.trim(),
                           password: _passwordController.text.trim(),
                         );
+                        if (!context.mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Account created successfully!')),
+                          const SnackBar(
+                            content: Text('Account created successfully!'),
+                          ),
                         );
+                        if (context.mounted) return;
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => const HomePage()),
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
                         );
                       } on FirebaseAuthException catch (e) {
+                        if (context.mounted) return;
                         String errorMessage;
                         if (e.code == 'weak-password') {
                           errorMessage = 'The password provided is too weak.';
                         } else if (e.code == 'email-already-in-use') {
-                          errorMessage = 'The account already exists for that email.';
+                          errorMessage =
+                              'The account already exists for that email.';
                         } else {
                           errorMessage = 'An error occurred. Please try again.';
                         }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(errorMessage)),
-                        );
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(errorMessage)));
                       }
                     }
                   },
@@ -192,10 +200,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 // Already have an account? Login
                 TextButton(
                   onPressed: () {
-                   Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                        );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                   child: const Text(
                     'Already have an account? Login',

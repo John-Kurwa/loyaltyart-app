@@ -17,5 +17,5 @@ class AppStyles {
     borderRadius: BorderRadius.circular(16),
   );
 
-  static  const double buttonRadius = 16.0;
+  static const double buttonRadius = 16.0;
 }

@@ -28,10 +28,10 @@ class BookingsController extends ChangeNotifier {
       await SmsService.sendSms(
         to: booking.phone,
         message:
-          "Hello ${booking.customerName} your booking for ${booking.service} at ${booking.bookingDate.toLocal} has been confirmed. Thank you!",
+            "Hello ${booking.customerName} your booking for ${booking.service} at ${booking.bookingDate.toLocal} has been confirmed. Thank you!",
       );
     } catch (e) {
-      debugPrint("Error, sending SMS failed: $e");      
+      debugPrint("Error, sending SMS failed: $e");
     }
   }
 }

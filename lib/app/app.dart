@@ -9,10 +9,7 @@ class LoyaltyArtApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'loyaltyArt',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(primarySwatch: Colors.deepPurple, useMaterial3: true),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: AppRoutes.generateRoute,

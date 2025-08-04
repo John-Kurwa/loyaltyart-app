@@ -19,17 +19,25 @@ class AdminDashboard extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _buildStatCard('Total Revenue', 'KES ${controller.totalRevenue.toStringAsFixed(2)}'),
+            _buildStatCard(
+              'Total Revenue',
+              'KES ${controller.totalRevenue.toStringAsFixed(2)}',
+            ),
             _buildStatCard('Total Bookings', '${controller.totalBookings}'),
-            _buildStatCard('Total Loyalty Scans', '${controller.totalLoyaltyScans}'),
+            _buildStatCard(
+              'Total Loyalty Scans',
+              '${controller.totalLoyaltyScans}',
+            ),
 
             const SizedBox(height: 16),
             const Text('Top Customers (by points)', style: _titleStyle),
-            ...controller.topCustomers.entries.map((entry) => ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text(entry.key),
-                  trailing: Text('${entry.value} points'),
-                )),
+            ...controller.topCustomers.entries.map(
+              (entry) => ListTile(
+                leading: const Icon(Icons.person),
+                title: Text(entry.key),
+                trailing: Text('${entry.value} points'),
+              ),
+            ),
 
             const SizedBox(height: 16),
             const Text('Revenue by Month', style: _titleStyle),
@@ -54,8 +62,13 @@ class AdminDashboard extends StatelessWidget {
               icon: const Icon(Icons.logout),
               label: const Text('Logout'),
               onPressed: () async {
-                await Provider.of<AuthController>(context, listen: false).signOut();
-                Navigator.pushReplacementNamed(context, '/login');
+                await Provider.of<AuthController>(
+                  context,
+                  listen: false,
+                ).signOut();
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(context, '/login');
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.redAccent,
@@ -82,9 +95,7 @@ class AdminDashboard extends StatelessWidget {
               ),
             ),
           ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: true),
-          ),
+          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
         ),
       ),
     );
@@ -103,7 +114,6 @@ class AdminDashboard extends StatelessWidget {
         dates.add(date);
         spots.add(FlSpot(i.toDouble(), point['value']));
       }
-      
     }
 
     return LineChart(
@@ -117,15 +127,15 @@ class AdminDashboard extends StatelessWidget {
               interval: 1,
               getTitlesWidget: (value, meta) {
                 int index = value.toInt();
-                if (index < 0 || index >= dates.length) return const SizedBox.shrink();
+                if (index < 0 || index >= dates.length) {
+                  return const SizedBox.shrink();
+                }
                 String formatted = DateFormat('MM/dd').format(dates[index]);
                 return Text(formatted, style: const TextStyle(fontSize: 10));
               },
             ),
           ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: true),
-          ),
+          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
         ),
@@ -145,10 +155,7 @@ class AdminDashboard extends StatelessWidget {
   Widget _buildStatCard(String title, String value) {
     return Card(
       elevation: 4,
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(value),
-      ),
+      child: ListTile(title: Text(title), subtitle: Text(value)),
     );
   }
 }

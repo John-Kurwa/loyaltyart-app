@@ -115,6 +115,7 @@ class _PaymentFormState extends State<PaymentForm> {
                         .addPayment(payment);
                     if (context.mounted) Navigator.pop(context);
                   } catch (e) {
+                    if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Error saving payment: $e'),

@@ -39,7 +39,9 @@ class BookingsPage extends StatelessWidget {
 
                 return ListTile(
                   title: Text(customerName),
-                  subtitle: Text("$service on ${booking.bookingDate.toLocal()}"),
+                  subtitle: Text(
+                    "$service on ${booking.bookingDate.toLocal()}",
+                  ),
                   trailing: Text(phone),
                 );
               },

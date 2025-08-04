@@ -12,7 +12,7 @@ class LoyaltyPage extends StatelessWidget {
 
     // Load a test user for now
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    controller.loadLoyalty('test_customer_id');
+      controller.loadLoyalty('test_customer_id');
     });
 
     return Scaffold(
@@ -29,17 +29,19 @@ class LoyaltyPage extends StatelessWidget {
           const SizedBox(height: 16),
 
           ElevatedButton(
-            child: const Text('Scan Loyalty QR (Staff)',
-            // style: TextStyle(color: Colors.white, fontSize: 12),
+            child: const Text(
+              'Scan Loyalty QR (Staff)',
+              // style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             onPressed: () {
               Navigator.pushNamed(context, '/scanqr');
-            },          
+            },
           ),
           const SizedBox(height: 8),
           ElevatedButton(
-            child: const Text('Admin Analytics',
-            // style: TextStyle(color: Colors.white, fontSize: 12),
+            child: const Text(
+              'Admin Analytics',
+              // style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             onPressed: () {
               Navigator.pushNamed(context, '/admin');

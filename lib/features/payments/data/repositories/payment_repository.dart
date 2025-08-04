@@ -13,7 +13,9 @@ class PaymentRepository {
     return _paymentCollection
         .orderBy('date', descending: true)
         .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => Payment.fromMap(doc.data())).toList());
+        .map(
+          (snapshot) =>
+              snapshot.docs.map((doc) => Payment.fromMap(doc.data())).toList(),
+        );
   }
 }

@@ -11,7 +11,7 @@ class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/login':
-        return MaterialPageRoute(builder: (_) =>  LoginPage());
+        return MaterialPageRoute(builder: (_) => LoginPage());
       case '/home':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/bookings':
@@ -21,13 +21,14 @@ class AppRoutes {
       case '/payments':
         return MaterialPageRoute(builder: (_) => const PaymentsPage());
       case '/admin':
-        return MaterialPageRoute(builder: (_) => const AdminDashboard());      
+        return MaterialPageRoute(builder: (_) => const AdminDashboard());
       case '/register':
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       default:
-        return MaterialPageRoute(builder: (_) => const Scaffold(
-          body: Center(child: Text('Page not found')),
-        ));
+        return MaterialPageRoute(
+          builder: (_) =>
+              const Scaffold(body: Center(child: Text('Page not found'))),
+        );
     }
   }
 }

@@ -19,10 +19,16 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthController()),
-        ChangeNotifierProvider(create: (_) => BookingsController()..loadBookings()),
+        ChangeNotifierProvider(
+          create: (_) => BookingsController()..loadBookings(),
+        ),
         ChangeNotifierProvider(create: (_) => LoyaltyController()),
-        ChangeNotifierProvider(create: (_) => PaymentsController()..loadPayments()),
-        ChangeNotifierProvider(create: (_) => AdminController()..loadAnalytics()),
+        ChangeNotifierProvider(
+          create: (_) => PaymentsController()..loadPayments(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AdminController()..loadAnalytics(),
+        ),
       ],
       child: const LoyaltyArtApp(),
     ),
@@ -44,14 +50,14 @@ class LoyaltyArtApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
               seedColor: Colors.deepPurple,
-              brightness: isDarkMode? Brightness.light : Brightness.dark,
-            )
+              brightness: isDarkMode ? Brightness.light : Brightness.dark,
+            ),
           ),
           initialRoute: '/auth',
           onGenerateRoute: AppRoutes.generateRoute,
           routes: {
             '/': (context) => const HomePage(),
-            '/auth': (context) =>  LoginPage(),
+            '/auth': (context) => LoginPage(),
           },
         );
       },

@@ -17,10 +17,7 @@ class QrCard extends StatelessWidget {
           children: [
             const Text('Show this QR code on visit'),
             if (dataToEncode.isNotEmpty)
-              QrImageView(
-                data: dataToEncode,
-                size: 200,
-              )
+              QrImageView(data: dataToEncode, size: 200)
             else
               const Text('Invalid customer ID'),
           ],

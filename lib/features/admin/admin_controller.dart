@@ -21,10 +21,7 @@ class AdminController extends ChangeNotifier {
 
   List<Map<String, dynamic>> get bookingsChart {
     return List.generate(bookingsLineSpots.length, (index) {
-      return {
-        'date': bookingDates[index],
-        'value': bookingsLineSpots[index].y,
-      };
+      return {'date': bookingDates[index], 'value': bookingsLineSpots[index].y};
     });
   }
 
@@ -50,8 +47,7 @@ class AdminController extends ChangeNotifier {
     // Top customers
     topCustomers = {
       for (var doc in loyaltySnap.docs)
-      if (doc['customerId'] != null)
-        doc['customerId']: doc['points'] ?? 0,
+        if (doc['customerId'] != null) doc['customerId']: doc['points'] ?? 0,
     };
 
     // ✅ Revenue per month
@@ -60,10 +56,11 @@ class AdminController extends ChangeNotifier {
       // final date = DateTime.parse(doc['date']);
       final dateString = doc['date'];
       if (dateString == null) continue;
-       final date = DateTime.tryParse(dateString);
+      final date = DateTime.tryParse(dateString);
       if (date == null) continue;
       final monthKey = "${date.year}-${date.month.toString().padLeft(2, '0')}";
-      revenuePerMonth[monthKey] = (revenuePerMonth[monthKey] ?? 0.0) + (doc['amount'] ?? 0.0);
+      revenuePerMonth[monthKey] =
+          (revenuePerMonth[monthKey] ?? 0.0) + (doc['amount'] ?? 0.0);
     }
     final sortedMonths = revenuePerMonth.keys.toList()..sort();
     revenueBarGroups = [];
@@ -73,11 +70,7 @@ class AdminController extends ChangeNotifier {
         BarChartGroupData(
           x: i,
           barRods: [
-            BarChartRodData(
-              toY: amount,
-              color: Colors.deepPurple,
-              width: 16,
-            ),
+            BarChartRodData(toY: amount, color: Colors.deepPurple, width: 16),
           ],
         ),
       );
@@ -90,7 +83,7 @@ class AdminController extends ChangeNotifier {
       // final date = DateTime.parse(doc['bookingDate']);
       final dateString = doc['bookingDate'];
       if (dateString == null) continue;
-       final date = DateTime.tryParse(dateString);
+      final date = DateTime.tryParse(dateString);
       if (date == null) continue;
       final dayKey = "${date.year}-${date.month}-${date.day}";
       bookingsPerDay[dayKey] = (bookingsPerDay[dayKey] ?? 0) + 1;

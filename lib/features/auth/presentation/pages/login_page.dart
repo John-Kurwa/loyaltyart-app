@@ -3,18 +3,62 @@ import '../../../auth/presentation/pages/register.dart';
 import 'package:loyaltyart/features/home/presentation/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  bool _isLoading = false;
+
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
+
+      try {
+        await _auth.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+
+        if (!mounted) return;
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      } on FirebaseAuthException catch (e) {
+        if (!mounted) return;
+
+        String errorMessage;
+        if (e.code == 'user-not-found') {
+          errorMessage = 'No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          errorMessage = 'Wrong password provided.';
+        } else {
+          errorMessage = 'An error occurred. Please try again.';
+        }
+
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(errorMessage)));
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade900, 
+      backgroundColor: Colors.purple.shade900,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.purple.shade900,
@@ -24,10 +68,10 @@ class LoginPage extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22,
-            color: Colors.blueAccent ,
+            color: Colors.blueAccent,
           ),
         ),
-        leading: Icon(Icons.login_rounded, color: Colors.blueAccent),
+        leading: const Icon(Icons.login_rounded, color: Colors.blueAccent),
         centerTitle: true,
       ),
       body: Center(
@@ -39,7 +83,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Email Input Field
+                // Email Input
                 TextFormField(
                   controller: emailController,
                   style: const TextStyle(color: Colors.white54),
@@ -70,7 +114,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // Password Input Field
+                // Password Input
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
@@ -100,32 +144,7 @@ class LoginPage extends StatelessWidget {
 
                 // Login Button
                 ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      try {
-                        await _auth.signInWithEmailAndPassword(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim(),
-                        );
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()),
-                        );
-                      } on FirebaseAuthException catch (e) {
-                        String errorMessage;
-                        if (e.code == 'user-not-found') {
-                          errorMessage = 'No user found for that email.';
-                        } else if (e.code == 'wrong-password') {
-                          errorMessage = 'Wrong password provided.';
-                        } else {
-                          errorMessage = 'An error occurred. Please try again.';
-                        }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(errorMessage)),
-                        );
-                      }
-                    }
-                  },
+                  onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
@@ -133,18 +152,31 @@ class LoginPage extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                        )
+                      : const Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
-               
+
+                const SizedBox(height: 12),
+
                 // Sign Up
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SignUpPage()),
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ),
                     );
                   },
                   child: const Text(

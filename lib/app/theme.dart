@@ -15,14 +15,13 @@ final ThemeData loyaltyTheme = ThemeData(
         borderRadius: BorderRadius.circular(AppStyles.buttonRadius),
       ),
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold
-      ),
-    ),    
+      textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    ),
   ),
-    pageTransitionsTheme: const PageTransitionsTheme(
+  pageTransitionsTheme: const PageTransitionsTheme(
     builders: {
       TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
     },
-  ),  
+  ),
 );

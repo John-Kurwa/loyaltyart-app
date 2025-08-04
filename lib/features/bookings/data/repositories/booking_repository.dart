@@ -13,7 +13,9 @@ class BookingRepository {
     return _bookingCollection
         .orderBy('bookingDate')
         .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => Booking.fromMap(doc.data())).toList());
+        .map(
+          (snapshot) =>
+              snapshot.docs.map((doc) => Booking.fromMap(doc.data())).toList(),
+        );
   }
 }

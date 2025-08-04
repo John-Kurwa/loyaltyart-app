@@ -70,18 +70,21 @@ class _BookingFormState extends State<BookingForm> {
             TextFormField(
               decoration: const InputDecoration(labelText: 'Customer Name'),
               onSaved: (val) => customerName = val ?? '',
-              validator: (val) => val == null || val.isEmpty ? 'Enter name' : null,
+              validator: (val) =>
+                  val == null || val.isEmpty ? 'Enter name' : null,
             ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'Phone'),
               keyboardType: TextInputType.phone,
               onSaved: (val) => phone = val ?? '',
-              validator: (val) => val == null || val.isEmpty ? 'Enter phone' : null,
+              validator: (val) =>
+                  val == null || val.isEmpty ? 'Enter phone' : null,
             ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'Service'),
               onSaved: (val) => service = val ?? '',
-              validator: (val) => val == null || val.isEmpty ? 'Enter service' : null,
+              validator: (val) =>
+                  val == null || val.isEmpty ? 'Enter service' : null,
             ),
             const SizedBox(height: 16),
             ElevatedButton(

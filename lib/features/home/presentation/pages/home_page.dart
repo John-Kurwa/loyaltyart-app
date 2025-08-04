@@ -9,15 +9,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Color(0xFFF8F8F8),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black54
+          : Color(0xFFF8F8F8),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Dashboard", style: TextStyle(fontWeight: FontWeight.w600)),
+        title: const Text(
+          "Dashboard",
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Colors.black
             : Colors.grey[500],
         leading: Icon(Icons.menu, color: Colors.white),
-        actions: [  
+        actions: [
           IconButton(
             onPressed: () {
               isDarkModeNotifier.value = !isDarkModeNotifier.value;
@@ -25,48 +30,65 @@ class HomePage extends StatelessWidget {
             icon: ValueListenableBuilder(
               valueListenable: isDarkModeNotifier,
               builder: (context, isDarkMode, child) {
-                return Icon(
-                  isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                );
-              },            
+                return Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode);
+              },
             ),
-          ), 
-          const SizedBox(width: 8),                 
+          ),
+          const SizedBox(width: 8),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-                await Provider.of<AuthController>(context, listen: false).signOut();
+              final shouldLogout = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Confirm Logout'),
+                  content: const Text('Are you sure you want to log out?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false), // No
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true), // Yes
+                      child: const Text('Yes'),
+                    ),
+                  ],
+                ),
+              );
+              if (!context.mounted) return;
+
+              if (shouldLogout == true) {
+                await Provider.of<AuthController>(
+                  context,
+                  listen: false,
+                ).signOut();
+                if (!context.mounted) return;
                 Navigator.pushReplacementNamed(context, '/login');
-            },            
-          ),          
+              }
+            },
+          ),
         ],
       ),
-      
+
       //Bottom navigation bar
       bottomNavigationBar: NavigationBar(
-          destinations: [
-            NavigationDestination(
-             icon: Icon(Icons.home),
-              label: '',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.search),
-              label: '',
-            ),
-          ],
-        ),
+        destinations: [
+          NavigationDestination(icon: Icon(Icons.home), label: ''),
+          NavigationDestination(icon: Icon(Icons.search), label: ''),
+        ],
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16),        
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               "Welcome back!",
-              style: TextStyle(fontSize: 24,
-              //  fontWeight: FontWeight.bold,
-               fontWeight: FontWeight.w600,
-               fontFamily: 'Poppins',
-               color: Colors.purple,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins',
+                color: Colors.purple,
               ),
             ),
             const SizedBox(height: 20),
@@ -132,7 +154,8 @@ class HomePage extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              // color: Colors.black.withOpacity(0.1),
+              color: color.withAlpha((0.1 * 255).toInt()),
               blurRadius: 8,
               offset: Offset(0, 4),
             ),
@@ -144,7 +167,7 @@ class HomePage extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 28,
-              backgroundColor: color.withOpacity(0.1),
+              backgroundColor: color.withAlpha((0.1 * 255).toInt()),
               child: Icon(icon, color: color, size: 32),
             ),
             const SizedBox(height: 12),
@@ -157,4 +180,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}                  
+}
