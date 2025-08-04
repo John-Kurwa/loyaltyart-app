@@ -37,34 +37,36 @@ class HomePage extends StatelessWidget {
           const SizedBox(width: 8),
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () async {
-              final shouldLogout = await showDialog<bool>(
+            onPressed: () {
+              showDialog<bool>(
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Confirm Logout'),
                   content: const Text('Are you sure you want to log out?'),
                   actions: [
                     TextButton(
-                      onPressed: () => Navigator.of(context).pop(false), // No
+                      onPressed: () => Navigator.of(context).pop(false),
                       child: const Text('No'),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.of(context).pop(true), // Yes
+                      onPressed: () => Navigator.of(context).pop(true),
                       child: const Text('Yes'),
                     ),
                   ],
                 ),
-              );
-              if (!context.mounted) return;
-
-              if (shouldLogout == true) {
-                await Provider.of<AuthController>(
-                  context,
-                  listen: false,
-                ).signOut();
-                if (!context.mounted) return;
-                Navigator.pushReplacementNamed(context, '/login');
-              }
+              ).then((shouldLogout) {
+                if (shouldLogout == true) {
+                  if (!context.mounted) return;
+                  final authController = Provider.of<AuthController>(
+                    context,
+                    listen: false,
+                  );
+                  authController.signOut().then((_) {
+                    if (!context.mounted) return;
+                    Navigator.pushReplacementNamed(context, '/login');
+                  });
+                }
+              });
             },
           ),
         ],
