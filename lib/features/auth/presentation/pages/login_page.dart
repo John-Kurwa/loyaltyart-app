@@ -56,6 +56,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.purple.shade900,
@@ -83,6 +90,17 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 28.0),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.contain,                   
+                    ),
+                  ),
+                ),              
                 // Email Input
                 TextFormField(
                   controller: emailController,
