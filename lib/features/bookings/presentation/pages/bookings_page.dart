@@ -11,7 +11,13 @@ class BookingsPage extends StatelessWidget {
     final controller = Provider.of<BookingsController>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Bookings')),
+      appBar: AppBar(
+        title: const Text('Bookings'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(

@@ -71,7 +71,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-
       //Bottom navigation bar
       bottomNavigationBar: NavigationBar(
         destinations: [

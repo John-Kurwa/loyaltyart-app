@@ -90,17 +90,16 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 28.0),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.contain,                   
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
                   ),
-                ),              
+                ),
+                const SizedBox(height: 20),
                 // Email Input
                 TextFormField(
                   controller: emailController,

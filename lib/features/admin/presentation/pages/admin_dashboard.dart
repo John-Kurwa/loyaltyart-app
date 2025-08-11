@@ -13,7 +13,12 @@ class AdminDashboard extends StatelessWidget {
     final controller = Provider.of<AdminController>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Admin Analytics')),
+      appBar: AppBar(title: const Text('Admin Analytics'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: () => controller.loadAnalytics(),
         child: ListView(

@@ -11,7 +11,12 @@ class PaymentsPage extends StatelessWidget {
     final controller = Provider.of<PaymentsController>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Payments')),
+      appBar: AppBar(title: const Text('Payments'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(

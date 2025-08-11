@@ -16,7 +16,12 @@ class LoyaltyPage extends StatelessWidget {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Loyalty Dashboard')),
+      appBar: AppBar(title: const Text('Loyalty Dashboard'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
