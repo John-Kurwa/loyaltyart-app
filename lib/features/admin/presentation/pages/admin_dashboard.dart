@@ -70,8 +70,8 @@ class AdminDashboard extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, '/login');
                 }
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
+              style: ElevatedButton.styleFrom(   
+                padding: const EdgeInsets.symmetric(vertical: 16),
               ),
             ),
           ],
