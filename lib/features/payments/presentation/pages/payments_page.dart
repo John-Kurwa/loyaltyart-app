@@ -9,9 +9,9 @@ class PaymentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<PaymentsController>(context);
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Payments'),
+      appBar: AppBar(
+        title: const Text('Payments'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Navigator.pop(context),
@@ -38,10 +38,17 @@ class PaymentsPage extends StatelessWidget {
                     : '?';
 
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   child: ListTile(
                     leading: CircleAvatar(child: Text(customerInitial)),
-                    title: Text(payment.customerName.isNotEmpty ? payment.customerName : 'Unnamed'),
+                    title: Text(
+                      payment.customerName.isNotEmpty
+                          ? payment.customerName
+                          : 'Unnamed',
+                    ),
                     subtitle: Text(
                       '${payment.method} • ${payment.date.toLocal().toString().substring(0, 16)}',
                     ),

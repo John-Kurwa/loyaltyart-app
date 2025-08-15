@@ -58,6 +58,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/logo.png
+    - assets/lotties/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -110,5 +111,6 @@ dependencies:
   flutter_staggered_animations: ^1.1.0
   uuid: ^4.3.3
   firebase_core_platform_interface: any
+  lottie: ^3.3.1
 
 

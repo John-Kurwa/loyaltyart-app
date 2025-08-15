@@ -3,13 +3,20 @@ import 'package:loyaltyart/features/bookings/bookings_controller.dart';
 import 'package:loyaltyart/features/bookings/presentation/pages/widgets/booking_form.dart';
 import 'package:provider/provider.dart';
 
-class BookingsPage extends StatelessWidget {
+class BookingsPage extends StatefulWidget {
   const BookingsPage({super.key});
+
+  @override
+  State<BookingsPage> createState() => _BookingsPageState();
+}
+
+class _BookingsPageState extends State<BookingsPage> {
+  bool get isMobile => MediaQuery.of(context).size.width < 600;
+  double get screenHeight => MediaQuery.of(context).size.height;
 
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<BookingsController>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bookings'),
