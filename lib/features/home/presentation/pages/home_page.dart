@@ -3,8 +3,19 @@ import 'package:provider/provider.dart';
 import 'package:loyaltyart/features/auth/auth_controller.dart';
 import 'package:loyaltyart/app/notifiers.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 600;
+
+  double screenHeight(BuildContext context) =>
+      MediaQuery.of(context).size.height;
 
   @override
   Widget build(BuildContext context) {
@@ -78,61 +89,80 @@ class HomePage extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.search), label: ''),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Welcome back!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Poppins',
-                color: Colors.purple,
+      body: LayoutBuilder(
+        builder: (context, BoxConstraints constarints) {
+          final widthScreen = constarints.maxWidth;
+          final isLargeScreen = widthScreen > 600;
+          return Center(
+            child: FractionallySizedBox(
+              widthFactor: isLargeScreen ? 0.5 : 1.0,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: isLargeScreen
+                        ? MainAxisAlignment.center
+                        : MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Welcome back!",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                          color: Colors.purple,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        childAspectRatio: 1,
+                        children: [
+                          _buildTile(
+                            context,
+                            icon: Icons.calendar_today,
+                            label: "Bookings",
+                            color: Colors.purpleAccent,
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/bookings'),
+                          ),
+                          _buildTile(
+                            context,
+                            icon: Icons.qr_code,
+                            label: "Loyalty",
+                            color: Colors.purpleAccent,
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/loyalty'),
+                          ),
+                          _buildTile(
+                            context,
+                            icon: Icons.payments,
+                            label: "Payments",
+                            color: Colors.purpleAccent,
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/payments'),
+                          ),
+                          _buildTile(
+                            context,
+                            icon: Icons.bar_chart,
+                            label: "Analytics",
+                            color: Colors.purpleAccent,
+                            onTap: () => Navigator.pushNamed(context, '/admin'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 1,
-                children: [
-                  _buildTile(
-                    context,
-                    icon: Icons.calendar_today,
-                    label: "Bookings",
-                    color: Colors.purpleAccent,
-                    onTap: () => Navigator.pushNamed(context, '/bookings'),
-                  ),
-                  _buildTile(
-                    context,
-                    icon: Icons.qr_code,
-                    label: "Loyalty",
-                    color: Colors.purpleAccent,
-                    onTap: () => Navigator.pushNamed(context, '/loyalty'),
-                  ),
-                  _buildTile(
-                    context,
-                    icon: Icons.payments,
-                    label: "Payments",
-                    color: Colors.purpleAccent,
-                    onTap: () => Navigator.pushNamed(context, '/payments'),
-                  ),
-                  _buildTile(
-                    context,
-                    icon: Icons.bar_chart,
-                    label: "Analytics",
-                    color: Colors.purpleAccent,
-                    onTap: () => Navigator.pushNamed(context, '/admin'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
