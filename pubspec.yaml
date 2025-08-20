@@ -58,6 +58,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/logo.png
+    - assets/images/favicon.ico
     - assets/lotties/login.json
     
   # The following line ensures that the Material Icons font is
