@@ -10,7 +10,8 @@ import 'features/loyalty/loyalty_controller.dart';
 import 'features/payments/payments_controller.dart';
 import 'package:loyaltyart/features/auth/auth_controller.dart';
 import 'package:loyaltyart/app/routes.dart';
-import 'package:loyaltyart/app/notifiers.dart';
+// import 'package:loyaltyart/app/notifiers.dart';
+import 'package:loyaltyart/features/menu/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

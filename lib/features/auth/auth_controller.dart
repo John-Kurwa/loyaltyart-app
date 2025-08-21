@@ -37,4 +37,6 @@ class AuthController extends ChangeNotifier {
       rethrow;
     }
   }
+
+  void login() {}
 }

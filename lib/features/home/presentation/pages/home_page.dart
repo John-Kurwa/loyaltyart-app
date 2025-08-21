@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:loyaltyart/features/auth/auth_controller.dart';
-import 'package:loyaltyart/app/notifiers.dart';
+import 'package:loyaltyart/features/menu/logout.dart';
+import 'package:loyaltyart/features/menu/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,48 +21,40 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Colors.black54
-          : Color(0xFFF8F8F8),  
+          : Color(0xFFF8F8F8),
       drawer: SafeArea(
         child: Drawer(
           child: Column(
             children: [
-              DrawerHeader(
-                child: Text('Menu')
-              ),
+              DrawerHeader(child: Text('Menu')),
               ListTile(
-                title: Text ('Notifications'),
+                title: Text('Notifications'),
                 onTap: () {
                   Navigator.pushNamed(context, '/notifications');
-                },                
+                },
               ),
               ListTile(
-                title: Text ('Messages'),
+                title: Text('Messages'),
                 onTap: () {
                   Navigator.pushNamed(context, '/messages');
-                },                
+                },
               ),
               ListTile(
-                title: Text ('Theme'),
-                onTap: () {
-                  Navigator.pushNamed(context, '/theme');
-                },                
+                title: const Text('Theme'),
+                trailing: const ThemeSelector(),
               ),
               ListTile(
-                title: Text ('About'),
+                title: Text('About'),
                 onTap: () {
                   Navigator.pushNamed(context, '/about');
-                },                
+                },
               ),
-              ListTile(
-                title: Text ('Logout'),
-                onTap: () {
-                  Navigator.pushNamed(context, '/logout');
-                },                
-              ),
-            ]      
+              const LogoutTile(),
+            ],
           ),
         ),
       ),
+      // Navigator.pushNamed(context, '/login');
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
@@ -72,67 +63,20 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Colors.black
-            : Colors.grey[500],        
-        leading: isMobile(context) // show menu only on mobile
-      ? Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        )
-      : null, //nothing on larger screens
-        actions: [
-          IconButton(
-            onPressed: () {
-              isDarkModeNotifier.value = !isDarkModeNotifier.value;
-            },
-            icon: ValueListenableBuilder(
-              valueListenable: isDarkModeNotifier,
-              builder: (context, isDarkMode, child) {
-                return Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode);
-              },
-            ),
-          ),
-          const SizedBox(width: 8),
-          // IconButton(
-          //   icon: const Icon(Icons.logout),
-          //   onPressed: () {
-          //     showDialog<bool>(
-          //       context: context,
-          //       builder: (context) => AlertDialog(
-          //         title: const Text('Confirm Logout'),
-          //         content: const Text('Are you sure you want to log out?'),
-          //         actions: [
-          //           TextButton(
-          //             onPressed: () => Navigator.of(context).pop(false),
-          //             child: const Text('No'),
-          //           ),
-          //           TextButton(
-          //             onPressed: () => Navigator.of(context).pop(true),
-          //             child: const Text('Yes'),
-          //           ),
-          //         ],
-          //       ),
-          //     ).then((shouldLogout) {
-          //       if (shouldLogout == true) {
-          //         if (!context.mounted) return;
-          //         final authController = Provider.of<AuthController>(
-          //           context,
-          //           listen: false,
-          //         );
-          //         authController.signOut().then((_) {
-          //           if (!context.mounted) return;
-          //           Navigator.pushReplacementNamed(context, '/login');
-          //         });
-          //       }
-          //     });
-          //   },
-          // ),
-        ],
+            : Colors.grey[500],
+        leading:
+            isMobile(context) // show menu only on mobile
+            ? Builder(
+                builder: (context) {
+                  return IconButton(
+                    icon: const Icon(Icons.menu),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                  );
+                },
+              )
+            : null, //nothing on larger screens        
       ),
       //Bottom navigation bar
       bottomNavigationBar: NavigationBar(
