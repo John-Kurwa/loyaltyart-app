@@ -59,8 +59,7 @@ class AdminController extends ChangeNotifier {
       final date = DateTime.tryParse(dateString);
       if (date == null) continue;
       final monthKey = "${date.year}-${date.month.toString().padLeft(2, '0')}";
-      revenuePerMonth[monthKey] =
-          (revenuePerMonth[monthKey] ?? 0.0) + (doc['amount'] ?? 0.0);
+      revenuePerMonth[monthKey] = (revenuePerMonth[monthKey] ?? 0.0) + (doc['amount'] ?? 0.0);
     }
     final sortedMonths = revenuePerMonth.keys.toList()..sort();
     revenueBarGroups = [];
