@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyaltyart/features/menu/logout.dart';
 import 'package:loyaltyart/features/menu/theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,9 +58,11 @@ class _HomePageState extends State<HomePage> {
       // Navigator.pushNamed(context, '/login');
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
+        title:  Text(
           "LoyaltyArt",
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: GoogleFonts.luckiestGuy(
+            fontSize: 16,
+          ),
         ),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Colors.black
@@ -101,13 +104,12 @@ class _HomePageState extends State<HomePage> {
                         : MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Welcome back!",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                          color: Colors.purple,
+                      Text(
+                        "Welcome back 🤗🤗!",
+                        style: GoogleFonts.luckiestGuy(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w200,
+                          // color: Colors.purple,
                         ),
                       ),
                       const SizedBox(height: 20),

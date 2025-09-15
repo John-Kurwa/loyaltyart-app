@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:loyaltyart/features/auth/presentation/pages/login_page.dart';
 import 'package:loyaltyart/features/home/presentation/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -39,12 +40,12 @@ class _SignUpPageState extends State<SignUpPage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.purple.shade900,
         elevation: 0,
-        title: const Text(
-          'Sign Up',
-          style: TextStyle(
+        title: Text(
+          'LoyaltyArt',
+          style: GoogleFonts.luckiestGuy(
             fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: Colors.blueAccent,
+            fontSize: 24,
+            color: Colors.white,
           ),
         ),
         centerTitle: true,
@@ -219,6 +220,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             'Sign Up',
                             style: TextStyle(
                               fontSize: 18,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
