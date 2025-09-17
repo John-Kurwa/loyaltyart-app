@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,12 +11,20 @@ import 'features/loyalty/loyalty_controller.dart';
 import 'features/payments/payments_controller.dart';
 import 'package:loyaltyart/features/auth/auth_controller.dart';
 import 'package:loyaltyart/app/routes.dart';
-// import 'package:loyaltyart/app/notifiers.dart';
 import 'package:loyaltyart/features/menu/theme.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Crashlytics Setup
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
   runApp(
     MultiProvider(
       providers: [
